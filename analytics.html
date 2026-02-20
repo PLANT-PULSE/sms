@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - MessageHub</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-small">
+                    <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+                        <rect width="40" height="40" rx="8" fill="#3B82F6"/>
+                        <path d="M10 14h20v2H10zM10 20h20v2H10zM10 26h12v2H10z" fill="white"/>
+                    </svg>
+                    <span>MessageHub</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item" data-page="dashboard">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="messaging.html" class="nav-item" data-page="messaging">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span>Messaging</span>
+                </a>
+                <a href="contacts.html" class="nav-item" data-page="contacts">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    <span>Contacts</span>
+                </a>
+                <a href="campaigns.html" class="nav-item" data-page="campaigns">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span>Campaigns</span>
+                </a>
+                <a href="history.html" class="nav-item" data-page="history">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <span>History</span>
+                </a>
+                <a href="analytics.html" class="nav-item active" data-page="analytics">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <line x1="12" y1="2" x2="12" y2="22"></line>
+                        <path d="M17 5H9.5a1.5 1.5 0 0 0-1.5 1.5v12a1.5 1.5 0 0 0 1.5 1.5H17"></path>
+                        <polyline points="7 12 3 9 3 15"></polyline>
+                    </svg>
+                    <span>Analytics</span>
+                </a>
+                <a href="settings.html" class="nav-item" data-page="settings">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m2.12 6.12l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m-2.12-6.12l4.24-4.24M19.78 19.78l-4.24-4.24m-2.12-6.12l-4.24-4.24"/>
+                    </svg>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn-logout" id="logoutBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-box">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" placeholder="Search...">
+                </div>
+
+                <div class="top-actions">
+                    <button class="notification-btn" id="notificationBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        <span class="notification-badge">3</span>
+                    </button>
+
+                    <div class="user-menu">
+                        <button class="user-btn" id="userMenuBtn">
+                            <div class="user-avatar">A</div>
+                            <span>Admin User</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <button class="theme-btn" id="themeToggle" title="Toggle dark mode">
+                        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="display: none;">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Analytics Content -->
+            <div class="page-header">
+                <h1>Analytics</h1>
+                <p class="page-subtitle">Detailed insights into your messaging performance</p>
+            </div>
+
+            <!-- Date Range Filter -->
+            <div class="contacts-toolbar">
+                <div class="filter-group">
+                    <label>Period:</label>
+                    <select class="form-input">
+                        <option>Last 7 Days</option>
+                        <option>Last 30 Days</option>
+                        <option>Last 90 Days</option>
+                        <option>This Year</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: rgba(59, 130, 246, 0.1); color: #3B82F6;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <p class="stat-label">Delivery Success Rate</p>
+                        <p class="stat-value">98.7%</p>
+                        <p class="stat-change">↑ 1.2% from previous period</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: rgba(34, 197, 94, 0.1); color: #22C55E;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"></path>
+                            <path d="M12 7v5l3 2"></path>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <p class="stat-label">Email Open Rate</p>
+                        <p class="stat-value">42.3%</p>
+                        <p class="stat-change">↑ 5.1% from previous period</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: rgba(168, 85, 247, 0.1); color: #A855F7;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <p class="stat-label">Click Rate</p>
+                        <p class="stat-value">18.5%</p>
+                        <p class="stat-change">↓ 2.3% from previous period</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background-color: rgba(6, 182, 212, 0.1); color: #06B6D4;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M16.5 9.4l-3.894 3.893"></path>
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <rect x="3" y="3" width="18" height="18"></rect>
+                        </svg>
+                    </div>
+                    <div class="stat-content">
+                        <p class="stat-label">Avg. Response Time</p>
+                        <p class="stat-value">2.4 hours</p>
+                        <p class="stat-change">↓ 0.6h from previous period</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Channel Performance Comparison</h3>
+                        <button class="chart-options">⋯</button>
+                    </div>
+                    <canvas id="channelChart"></canvas>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Delivery Status Breakdown</h3>
+                        <button class="chart-options">⋯</button>
+                    </div>
+                    <canvas id="deliveryChart"></canvas>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Email Engagement Metrics</h3>
+                        <button class="chart-options">⋯</button>
+                    </div>
+                    <canvas id="engagementChart"></canvas>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Message Volume Trend</h3>
+                        <button class="chart-options">⋯</button>
+                    </div>
+                    <canvas id="volumeChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Campaign Performance Table -->
+            <div class="activity-card">
+                <div class="activity-header">
+                    <h3>Top Campaigns by Performance</h3>
+                    <a href="campaigns.html" class="link-text">View all campaigns</a>
+                </div>
+                <div class="table-container">
+                    <table class="contacts-table">
+                        <thead>
+                            <tr>
+                                <th>Campaign Name</th>
+                                <th>Channel</th>
+                                <th>Messages Sent</th>
+                                <th>Delivery Rate</th>
+                                <th>Open Rate</th>
+                                <th>Click Rate</th>
+                                <th>ROI</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Summer Sale 2026</strong></td>
+                                <td><span class="badge badge-green">SMS</span></td>
+                                <td>1,234</td>
+                                <td>98.5%</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>+245%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Newsletter Feb</strong></td>
+                                <td><span class="badge badge-purple">Email</span></td>
+                                <td>5,432</td>
+                                <td>99.4%</td>
+                                <td>42.3%</td>
+                                <td>18.5%</td>
+                                <td>+156%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Product Launch</strong></td>
+                                <td><span class="badge badge-blue">WhatsApp</span></td>
+                                <td>2,891</td>
+                                <td>97.2%</td>
+                                <td>-</td>
+                                <td>22.1%</td>
+                                <td>+189%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Birthday Campaign</strong></td>
+                                <td><span class="badge badge-blue">WhatsApp</span></td>
+                                <td>456</td>
+                                <td>97.6%</td>
+                                <td>-</td>
+                                <td>35.2%</td>
+                                <td>+312%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Holiday Promo</strong></td>
+                                <td><span class="badge badge-green">SMS</span></td>
+                                <td>8,456</td>
+                                <td>96.8%</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>+198%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

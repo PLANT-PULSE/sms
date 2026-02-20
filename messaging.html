@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messaging - MessageHub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-small">
+                    <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+                        <rect width="40" height="40" rx="8" fill="#3B82F6"/>
+                        <path d="M10 14h20v2H10zM10 20h20v2H10zM10 26h12v2H10z" fill="white"/>
+                    </svg>
+                    <span>MessageHub</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item" data-page="dashboard">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="messaging.html" class="nav-item active" data-page="messaging">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span>Messaging</span>
+                </a>
+                <a href="contacts.html" class="nav-item" data-page="contacts">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    <span>Contacts</span>
+                </a>
+                <a href="campaigns.html" class="nav-item" data-page="campaigns">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span>Campaigns</span>
+                </a>
+                <a href="history.html" class="nav-item" data-page="history">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <span>History</span>
+                </a>
+                <a href="analytics.html" class="nav-item" data-page="analytics">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <line x1="12" y1="2" x2="12" y2="22"></line>
+                        <path d="M17 5H9.5a1.5 1.5 0 0 0-1.5 1.5v12a1.5 1.5 0 0 0 1.5 1.5H17"></path>
+                        <polyline points="7 12 3 9 3 15"></polyline>
+                    </svg>
+                    <span>Analytics</span>
+                </a>
+                <a href="settings.html" class="nav-item" data-page="settings">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m2.12 6.12l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m-2.12-6.12l4.24-4.24M19.78 19.78l-4.24-4.24m-2.12-6.12l-4.24-4.24"/>
+                    </svg>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn-logout" id="logoutBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-box">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" placeholder="Search...">
+                </div>
+
+                <div class="top-actions">
+                    <button class="notification-btn" id="notificationBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        <span class="notification-badge">3</span>
+                    </button>
+
+                    <div class="user-menu">
+                        <button class="user-btn" id="userMenuBtn">
+                            <div class="user-avatar">A</div>
+                            <span>Admin User</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <button class="theme-btn" id="themeToggle" title="Toggle dark mode">
+                        <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="display: none;">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Messaging Content -->
+            <div class="page-header">
+                <h1>Send Messages</h1>
+                <p class="page-subtitle">Send messages instantly via SMS, Email, or WhatsApp</p>
+            </div>
+
+            <!-- Channel Tabs -->
+            <div class="tabs-container">
+                <div class="tabs">
+                    <button class="tab-btn active" data-channel="sms">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        SMS
+                    </button>
+                    <button class="tab-btn" data-channel="email">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                        </svg>
+                        Email
+                    </button>
+                    <button class="tab-btn" data-channel="whatsapp">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        WhatsApp
+                    </button>
+                </div>
+            </div>
+
+            <!-- SMS Mode -->
+            <div class="messaging-form" id="smsForm" style="display: block;">
+                <div class="form-grid">
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label>Select Recipients</label>
+                            <div class="recipient-selector">
+                                <input type="text" placeholder="Search contacts..." class="contact-search">
+                                <div class="contact-list">
+                                    <label class="contact-item">
+                                        <input type="checkbox" value="john@example.com">
+                                        <span>John Doe (SMS)</span>
+                                    </label>
+                                    <label class="contact-item">
+                                        <input type="checkbox" value="jane@example.com">
+                                        <span>Jane Smith (SMS)</span>
+                                    </label>
+                                    <label class="contact-item">
+                                        <input type="checkbox" value="bob@example.com">
+                                        <span>Bob Johnson (SMS)</span>
+                                    </label>
+                                    <label class="contact-item">
+                                        <input type="checkbox" value="alice@example.com">
+                                        <span>Alice Williams (SMS)</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Upload CSV (Optional)</label>
+                            <div class="file-upload">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                <p>Drag and drop your CSV file here</p>
+                                <input type="file" accept=".csv" style="display: none;">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Schedule (Optional)</label>
+                            <div class="schedule-inputs">
+                                <input type="date" placeholder="Select date">
+                                <input type="time" placeholder="Select time">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label>Message Content</label>
+                            <textarea placeholder="Type your message here..." class="message-input" rows="8"></textarea>
+                            <div class="message-stats">
+                                <span class="char-count">0 characters</span>
+                                <span class="segment-count">0 segments</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-block" id="sendSmsBtn">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Send SMS
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Email Mode -->
+            <div class="messaging-form" id="emailForm" style="display: none;">
+                <div class="form-grid">
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label>Select Recipients</label>
+                            <div class="recipient-selector">
+                                <input type="text" placeholder="Search contacts..." class="contact-search">
+                                <div class="contact-list">
+                                    <label class="contact-item">
+                                        <input type="checkbox" value="john@example.com">
+                                        <span>John Doe</span>
+                                    </label>
+                                    <label class="contact-item">
+                                        <input type="checkbox" value="jane@example.com">
+                                        <span>Jane Smith</span>
+                                    </label>
+                                    <label class="contact-item">
+                                        <input type="checkbox" value="bob@example.com">
+                                        <span>Bob Johnson</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Attachment</label>
+                            <div class="file-upload">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                    <polyline points="13 2 13 9 20 9"></polyline>
+                                </svg>
+                                <p>Click to upload or drag PDF, DOC, ZIP</p>
+                                <input type="file" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <input type="text" placeholder="Email subject..." class="form-input">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Message Body</label>
+                            <div class="rich-editor">
+                                <div class="editor-toolbar">
+                                    <button type="button" class="editor-btn" title="Bold"><strong>B</strong></button>
+                                    <button type="button" class="editor-btn" title="Italic"><em>I</em></button>
+                                    <button type="button" class="editor-btn" title="Link">🔗</button>
+                                </div>
+                                <textarea placeholder="Compose your email..." class="message-input" rows="6"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Schedule (Optional)</label>
+                            <div class="schedule-inputs">
+                                <input type="date" placeholder="Select date">
+                                <input type="time" placeholder="Select time">
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary btn-block" id="sendEmailBtn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                            </svg>
+                            Send Email
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WhatsApp Mode -->
+            <div class="messaging-form" id="whatsappForm" style="display: none;">
+                <div class="form-grid">
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label>Select Recipients</label>
+                            <div class="recipient-selector">
+                                <input type="text" placeholder="Search contacts..." class="contact-search">
+                                <div class="contact-list">
+                                    <label class="contact-item">
+                                        <input type="checkbox" value="john@example.com">
+                                        <span>John Doe (WhatsApp)</span>
+                                    </label>
+                                    <label class="contact-item">
+                                        <input type="checkbox" value="jane@example.com">
+                                        <span>Jane Smith (WhatsApp)</span>
+                                    </label>
+                                    <label class="contact-item">
+                                        <input type="checkbox" value="bob@example.com">
+                                        <span>Bob Johnson (WhatsApp)</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Select Template (Optional)</label>
+                            <select class="form-input">
+                                <option>No template</option>
+                                <option>Welcome Message</option>
+                                <option>Promotional Offer</option>
+                                <option>Support Response</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Media (Optional)</label>
+                            <div class="file-upload">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                                <p>Upload image or document</p>
+                                <input type="file" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label>Message Content</label>
+                            <textarea placeholder="Type your WhatsApp message..." class="message-input" rows="8"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Emoji Picker</label>
+                            <div class="emoji-picker">
+                                <button type="button" class="emoji-btn" title="Emoji">😊 Add Emoji</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Schedule (Optional)</label>
+                            <div class="schedule-inputs">
+                                <input type="date" placeholder="Select date">
+                                <input type="time" placeholder="Select time">
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary btn-block" id="sendWhatsappBtn">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                            Send WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
