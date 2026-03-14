@@ -58,6 +58,53 @@ function updateThemeIcons() {
 }
 
 // ============================================
+// HAMBURGER MENU TOGGLE
+// ============================================
+
+function initHamburger() {
+    const hamburger = document.querySelector('.hamburger');
+    const sidebar = document.querySelector('.sidebar');
+    
+    // Create overlay if it doesn't exist
+    let overlay = document.querySelector('.sidebar-overlay');
+    if (!overlay && sidebar) {
+        overlay = document.createElement('div');
+        overlay.className = 'sidebar-overlay';
+        document.body.appendChild(overlay);
+    }
+
+    if (hamburger && sidebar) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            sidebar.classList.toggle('active');
+            if (overlay) {
+                overlay.classList.toggle('active');
+            }
+        });
+
+        // Close sidebar when clicking overlay
+        if (overlay) {
+            overlay.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+        }
+
+        // Close sidebar on window resize if switching to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                hamburger.classList.remove('active');
+                sidebar.classList.remove('active');
+                if (overlay) {
+                    overlay.classList.remove('active');
+                }
+            }
+        });
+    }
+}
+
+// ============================================
 // AUTHENTICATION
 // ============================================
 
@@ -592,6 +639,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize theme
     initTheme();
+
+    // Initialize hamburger menu
+    initHamburger();
 
     // Theme toggle
     document.querySelectorAll('.theme-btn').forEach(btn => {
