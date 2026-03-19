@@ -61,23 +61,45 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# Database
+# Database - Supabase Configuration
+# Supabase provides a PostgreSQL-compatible database
+SUPABASE_URL = os.getenv('SUPABASE_URL', '')
+SUPABASE_ANON_KEY = os.getenv('SUPABASE_ANON_KEY', '')
+SUPABASE_SERVICE_KEY = os.getenv('SUPABASE_SERVICE_KEY', '')
+
+# Legacy PostgreSQL configuration (fallback)
 DB_NAME = os.getenv('DB_NAME', 'messaging_db')
 DB_USER = os.getenv('DB_USER', 'postgres')
 DB_PASSWORD = os.getenv('DB_PASSWORD', 'postgres')
 DB_HOST = os.getenv('DB_HOST', '127.0.0.1')
 DB_PORT = os.getenv('DB_PORT', '5432')
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': DB_NAME,
-        'USER': DB_USER,
-        'PASSWORD': DB_PASSWORD,
-        'HOST': DB_HOST,
-        'PORT': DB_PORT,
+# Use Supabase URL if provided, otherwise fall back to individual parameters
+if SUPABASE_URL:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': SUPABASE_URL.split('/')[-1] if '/' in SUPABASE_URL else DB_NAME,
+            'USER': 'postgres',
+            'PASSWORD': os.getenv('SUPABASE_DB_PASSWORD', ''),
+            'HOST': SUPABASE_URL.replace('postgresql://', '').split(':')[0].split('@')[-1] if SUPABASE_URL else DB_HOST,
+            'PORT': SUPABASE_URL.split(':')[-1].split('/')[0] if ':' in SUPABASE_URL and '/' in SUPABASE_URL else DB_PORT,
+            'OPTIONS': {
+                'sslmode': 'require',
+            }
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': DB_NAME,
+            'USER': DB_USER,
+            'PASSWORD': DB_PASSWORD,
+            'HOST': DB_HOST,
+            'PORT': DB_PORT,
+        }
+    }
 
 # Custom user model
 AUTH_USER_MODEL = 'api.User'
